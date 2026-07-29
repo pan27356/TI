@@ -1,0 +1,42 @@
+<projectSpec>
+  <project
+        name="aes_ex11_cbc_packed"
+        device="TMS320F280049C"
+        cgtVersion="21.6.0.LTS"
+        products="C2000WARE"
+        launchWizard="False"
+        linkerCommandFile=""
+        >
+
+    <configuration name="f28004x_FLASH" compilerBuildOptions="-Ooff --opt_for_speed=2 --fp_mode=relaxed -I${PROJECT_ROOT} -I${PROJECT_ROOT}/inc -I${PROJECT_ROOT}/f28004x -I${PROJECT_ROOT}/f28004x/driverlib -I${CG_TOOL_ROOT}/include -v28 -ml -mt --cla_support=cla2 --tmu_support=tmu0 --define=CPU1 --define=_FLASH --define=MEM_PACKED_SPEED_OPT --diag_warning=225 --diag_wrap=off --gen_func_subsections=on --abi=eabi" linkerBuildOptions="--stack_size=0x200  --heap_size=0x200 --define=CPU1 -I${CG_TOOL_ROOT}/include -I${CG_TOOL_ROOT}/lib" />
+    <configuration name="f28004x_RAM" compilerBuildOptions="-Ooff --opt_for_speed=2 --fp_mode=relaxed -I${PROJECT_ROOT} -I${PROJECT_ROOT}/inc -I${PROJECT_ROOT}/f28004x -I${PROJECT_ROOT}/f28004x/driverlib -I${CG_TOOL_ROOT}/include -v28 -ml -mt --cla_support=cla2 --tmu_support=tmu0 --define=CPU1 --define=MEM_PACKED_SPEED_OPT --diag_warning=225 --diag_wrap=off --gen_func_subsections=on --abi=eabi" linkerBuildOptions="--stack_size=0x200  --heap_size=0x200 --define=CPU1 -I${CG_TOOL_ROOT}/include -I${CG_TOOL_ROOT}/lib" />
+
+    <pathVariable name="C2000WARE_DEVICE_SUPPORT_ROOT" path="../../../../../../device_support/" scope="project" />
+    <pathVariable name="C2000WARE_DLIB_ROOT" path="../../../../../../driverlib/" scope="project" />
+    <pathVariable name="AES_ROOT" path="../../aes" scope="project" />
+	  <pathVariable name="EXAMPLE_ROOT" path="../" scope="project" />
+
+    <file action="copy" path="AES_ROOT/source/aes_cbc.c" targetDirectory="src" />
+    <file action="copy" path="AES_ROOT/source/aes_common.c" targetDirectory="src" />
+    <file action="copy" path="AES_ROOT/include/aes_cbc.h" targetDirectory="inc" />
+    <file action="copy" path="AES_ROOT/include/aes_common.h" targetDirectory="inc" />
+    <file action="copy" path="EXAMPLE_ROOT/aes_ex11_cbc_packed.c" targetDirectory="" />
+    <file action="copy" path="EXAMPLE_ROOT/28004x_generic_ram_lnk.cmd" targetDirectory="f28004x" applicableConfigurations="f28004x_RAM" />
+    <file action="copy" path="EXAMPLE_ROOT/28004x_generic_flash_lnk.cmd" targetDirectory="f28004x" applicableConfigurations="f28004x_FLASH" />
+
+    <!--          DRIVERLIB         -->
+    <!-- f28004x    f28004x   f28004x  -->
+    <!--          DRIVERLIB         -->
+
+    <file action="copy" path="C2000WARE_DEVICE_SUPPORT_ROOT/f28004x/common/include/driverlib.h" targetDirectory="f28004x" applicableConfigurations="f28004x_RAM,f28004x_FLASH" />
+    <file action="copy" path="C2000WARE_DEVICE_SUPPORT_ROOT/f28004x/common/include/device.h" targetDirectory="f28004x" applicableConfigurations="f28004x_RAM,f28004x_FLASH" />
+    <file action="copy" path="C2000WARE_DEVICE_SUPPORT_ROOT/f28004x/common/source/device.c" targetDirectory="f28004x" applicableConfigurations="f28004x_RAM,f28004x_FLASH" />
+    <file action="copy" path="C2000WARE_DEVICE_SUPPORT_ROOT/f28004x/common/source/f28004x_codestartbranch.asm" targetDirectory="f28004x" applicableConfigurations="f28004x_RAM,f28004x_FLASH" />
+    <file action="link" path="C2000WARE_DLIB_ROOT/f28004x/driverlib/ccs/Debug/driverlib.lib" targetDirectory="f28004x" applicableConfigurations="f28004x_RAM,f28004x_FLASH" />
+    <file action="copy" path="C2000WARE_DEVICE_SUPPORT_ROOT/f28004x/common/targetConfigs/TMS320F280049C.ccxml" targetDirectory="f28004x" applicableConfigurations="f28004x_RAM,f28004x_FLASH" />
+    <file action="copy" path="C2000WARE_DLIB_ROOT/f28004x/driverlib/" targetDirectory="f28004x" excludeFromBuild="True" applicableConfigurations="f28004x_RAM,f28004x_FLASH" />
+
+  </project>
+
+
+</projectSpec>

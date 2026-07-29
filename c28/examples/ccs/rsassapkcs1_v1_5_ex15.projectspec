@@ -1,0 +1,50 @@
+<projectSpec>
+  <project
+        name="rsassapkcs1_v1_5_ex15"
+        device="TMS320F28P650DK9"
+        cgtVersion="21.6.0.LTS"
+        products="C2000WARE"
+        launchWizard="False"
+        linkerCommandFile=""
+        >
+
+    <configuration name="SHA256_RSA_2048_FLASH" compilerBuildOptions="-Ooff --opt_for_speed=2 --fp_mode=relaxed -I${PROJECT_ROOT} -I${COM_TI_C2000WARE_SOFTWARE_PACKAGE_INSTALL_DIR}/libraries/security/crypto/c28/sha/include -I${PROJECT_ROOT}/inc -I${PROJECT_ROOT}/f28004x -I${PROJECT_ROOT}/f28004x/driverlib -I${CG_TOOL_ROOT}/include -v28 -ml -mt --cla_support=cla2 --tmu_support=tmu0 --define=SHA_256 --define=CPU1 --define=RSA_2048 --define=_FLASH --diag_warning=225 --diag_wrap=off --gen_func_subsections=on --abi=eabi" linkerBuildOptions="--stack_size=0x2000  --heap_size=0x2000 --define=CPU1 -I${CG_TOOL_ROOT}/include -I${CG_TOOL_ROOT}/lib" />
+	<configuration name="SHA256_RSA_3072_FLASH" compilerBuildOptions="-Ooff --opt_for_speed=2 --fp_mode=relaxed -I${PROJECT_ROOT} -I${COM_TI_C2000WARE_SOFTWARE_PACKAGE_INSTALL_DIR}/libraries/security/crypto/c28/sha/include -I${PROJECT_ROOT}/inc -I${PROJECT_ROOT}/f28004x -I${PROJECT_ROOT}/f28004x/driverlib -I${CG_TOOL_ROOT}/include -v28 -ml -mt --cla_support=cla2 --tmu_support=tmu0 --define=SHA_256 --define=CPU1 --define=RSA_3072 --define=_FLASH --diag_warning=225 --diag_wrap=off --gen_func_subsections=on --abi=eabi" linkerBuildOptions="--stack_size=0x2000  --heap_size=0x2000 --define=CPU1 -I${CG_TOOL_ROOT}/include -I${CG_TOOL_ROOT}/lib" />
+	<configuration name="SHA384_RSA_2048_FLASH" compilerBuildOptions="-Ooff --opt_for_speed=2 --fp_mode=relaxed -I${PROJECT_ROOT} -I${COM_TI_C2000WARE_SOFTWARE_PACKAGE_INSTALL_DIR}/libraries/security/crypto/c28/sha/include -I${PROJECT_ROOT}/inc -I${PROJECT_ROOT}/f28004x -I${PROJECT_ROOT}/f28004x/driverlib -I${CG_TOOL_ROOT}/include -v28 -ml -mt --cla_support=cla2 --tmu_support=tmu0 --define=SHA_384 --define=CPU1 --define=RSA_2048 --define=_FLASH --diag_warning=225 --diag_wrap=off --gen_func_subsections=on --abi=eabi" linkerBuildOptions="--stack_size=0x2000  --heap_size=0x2000 --define=CPU1 -I${CG_TOOL_ROOT}/include -I${CG_TOOL_ROOT}/lib" />
+	<configuration name="SHA384_RSA_3072_FLASH" compilerBuildOptions="-Ooff --opt_for_speed=2 --fp_mode=relaxed -I${PROJECT_ROOT} -I${COM_TI_C2000WARE_SOFTWARE_PACKAGE_INSTALL_DIR}/libraries/security/crypto/c28/sha/include -I${PROJECT_ROOT}/inc -I${PROJECT_ROOT}/f28004x -I${PROJECT_ROOT}/f28004x/driverlib -I${CG_TOOL_ROOT}/include -v28 -ml -mt --cla_support=cla2 --tmu_support=tmu0 --define=SHA_384 --define=CPU1 --define=RSA_3072 --define=_FLASH --diag_warning=225 --diag_wrap=off --gen_func_subsections=on --abi=eabi" linkerBuildOptions="--stack_size=0x2000  --heap_size=0x2000 --define=CPU1 -I${CG_TOOL_ROOT}/include -I${CG_TOOL_ROOT}/lib" />
+
+    <pathVariable name="C2000WARE_DEVICE_SUPPORT_ROOT" path="../../../../../../device_support/" scope="project" />
+    <pathVariable name="C2000WARE_DLIB_ROOT" path="../../../../../../driverlib/" scope="project" />
+    <pathVariable name="AES_ROOT" path="../../aes" scope="project" />
+    <pathVariable name="SHA_ROOT" path="../../sha" scope="project" />
+    <pathVariable name="RSA_ROOT" path="../../rsa" scope="project" />
+	<pathVariable name="EXAMPLE_ROOT" path="../" scope="project" />
+
+    <file action="copy" path="SHA_ROOT/source/sha256.c" targetDirectory="src" />
+    <file action="copy" path="SHA_ROOT/source/sha256_casm_C28.asm" targetDirectory="src" />	
+	<file action="copy" path="SHA_ROOT/source/sha384_casm_C28.asm" targetDirectory="src" />	
+    <file action="copy" path="SHA_ROOT/include/sha256.h" targetDirectory="inc" />
+    <file action="copy" path="SHA_ROOT/source/sha384.c" targetDirectory="src" />
+    <file action="copy" path="SHA_ROOT/include/sha384.h" targetDirectory="inc" />
+    <file action="copy" path="AES_ROOT/source/aes_common.c" targetDirectory="src" />
+    <file action="copy" path="AES_ROOT/include/aes_common.h" targetDirectory="inc" />
+    <file action="copy" path="AES_ROOT/source/aes_ctr.c" targetDirectory="src" />
+    <file action="copy" path="AES_ROOT/include/aes_ctr.h" targetDirectory="inc" />
+    <file action="copy" path="RSA_ROOT/source/emsa_pkcs1_v1_5.c" targetDirectory="src" />
+    <file action="copy" path="RSA_ROOT/include/emsa_pkcs1_v1_5.h" targetDirectory="inc" />
+    <file action="copy" path="RSA_ROOT/source/mpi.c" targetDirectory="src" />
+    <file action="copy" path="RSA_ROOT/include/mpi.h" targetDirectory="inc" />
+    <file action="copy" path="RSA_ROOT/source/rsassa_pkcs1_v1_5.c" targetDirectory="src" />
+    <file action="copy" path="RSA_ROOT/include/rsassa_pkcs1_v1_5.h" targetDirectory="inc" />
+    <file action="copy" path="RSA_ROOT/source/yarrow.c" targetDirectory="src" />
+    <file action="copy" path="RSA_ROOT/include/yarrow.h" targetDirectory="inc" />
+    <file action="copy" path="RSA_ROOT/include/logtab.h" targetDirectory="inc" />
+    <file action="copy" path="RSA_ROOT/include/mpi-config.h" targetDirectory="inc" />
+    <file action="copy" path="RSA_ROOT/include/mpi-types.h" targetDirectory="inc" />
+    <file action="copy" path="EXAMPLE_ROOT/rsassa_pkcs1_v1_5_ex15.c" targetDirectory="" />
+    <file action="copy" path="EXAMPLE_ROOT/28p65x_generic_flash_lnk_cpu1.cmd" targetDirectory="" applicableConfigurations="SHA256_RSA_2048_FLASH, SHA256_RSA_3072_FLASH, SHA384_RSA_2048_FLASH, SHA384_RSA_3072_FLASH" />
+
+  </project>
+
+
+</projectSpec>
