@@ -1,0 +1,12 @@
+"./syscfg/board.obj"
+"./syscfg/c2000ware_libraries.obj"
+"./cancom_util_main.obj"
+"./device.obj"
+"./f28003x_codestartbranch.obj"
+"./f28003x_globalvariabledefs.obj"
+"./mcan.obj"
+"./spi.obj"
+"../28003x_generic_flash_lnk.cmd"
+"E:/1. KZQ342_Project/Project_SDK/c2000ware/driverlib/f28003x/driverlib/ccs/Release/driverlib.lib"
+"../f28003x_headers_nonBIOS.cmd"
+-llibc.a

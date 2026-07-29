@@ -51,6 +51,7 @@ void Board_init()
 	CPUTIMER_init();
 	GPIO_init();
 	MCAN_SYSCFG_init();
+	SPI_init();
 	WATCHDOG_init();
 	INTERRUPT_init();
 
@@ -80,6 +81,25 @@ void PinMux_init()
 	GPIO_setPinConfig(MCAN_COM_MCANTX_PIN_CONFIG);
 	GPIO_setPadConfig(MCAN_COM_MCANTX_GPIO, GPIO_PIN_TYPE_STD);
 	GPIO_setQualificationMode(MCAN_COM_MCANTX_GPIO, GPIO_QUAL_ASYNC);
+
+	//
+	// SPIA -> EEPROM_SPI Pinmux
+	//
+	GPIO_setPinConfig(EEPROM_SPI_SPIPICO_PIN_CONFIG);
+	GPIO_setPadConfig(EEPROM_SPI_SPIPICO_GPIO, GPIO_PIN_TYPE_STD);
+	GPIO_setQualificationMode(EEPROM_SPI_SPIPICO_GPIO, GPIO_QUAL_ASYNC);
+
+	GPIO_setPinConfig(EEPROM_SPI_SPIPOCI_PIN_CONFIG);
+	GPIO_setPadConfig(EEPROM_SPI_SPIPOCI_GPIO, GPIO_PIN_TYPE_STD);
+	GPIO_setQualificationMode(EEPROM_SPI_SPIPOCI_GPIO, GPIO_QUAL_ASYNC);
+
+	GPIO_setPinConfig(EEPROM_SPI_SPICLK_PIN_CONFIG);
+	GPIO_setPadConfig(EEPROM_SPI_SPICLK_GPIO, GPIO_PIN_TYPE_STD);
+	GPIO_setQualificationMode(EEPROM_SPI_SPICLK_GPIO, GPIO_QUAL_ASYNC);
+
+	GPIO_setPinConfig(EEPROM_SPI_SPIPTE_PIN_CONFIG);
+	GPIO_setPadConfig(EEPROM_SPI_SPIPTE_GPIO, GPIO_PIN_TYPE_STD);
+	GPIO_setQualificationMode(EEPROM_SPI_SPIPTE_GPIO, GPIO_QUAL_ASYNC);
 
 
 }
@@ -337,6 +357,26 @@ void MCAN_COM_init(){
     MCAN_enableIntr(MCAN_COM_BASE, MCAN_INTR_MASK_ALL, 1U);
     MCAN_selectIntrLine(MCAN_COM_BASE, MCAN_IR_RF0N_MASK, MCAN_INTR_LINE_NUM_0);
     MCAN_enableIntrLine(MCAN_COM_BASE, MCAN_INTR_LINE_NUM_0, 1U);
+}
+
+//*****************************************************************************
+//
+// SPI Configurations
+//
+//*****************************************************************************
+void SPI_init(){
+	EEPROM_SPI_init();
+}
+
+void EEPROM_SPI_init(){
+	SPI_disableModule(EEPROM_SPI_BASE);
+	SPI_setConfig(EEPROM_SPI_BASE, DEVICE_LSPCLK_FREQ, SPI_PROT_POL1PHA0,
+				  SPI_MODE_CONTROLLER, EEPROM_SPI_BITRATE, EEPROM_SPI_DATAWIDTH);
+	SPI_setPTESignalPolarity(EEPROM_SPI_BASE, SPI_PTE_ACTIVE_LOW);
+	SPI_enableFIFO(EEPROM_SPI_BASE);
+	SPI_disableLoopback(EEPROM_SPI_BASE);
+	SPI_setEmulationMode(EEPROM_SPI_BASE, SPI_EMULATION_FREE_RUN);
+	SPI_enableModule(EEPROM_SPI_BASE);
 }
 
 //*****************************************************************************

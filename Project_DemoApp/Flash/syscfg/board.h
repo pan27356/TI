@@ -78,6 +78,34 @@ extern "C"
 #define MCAN_COM_MCANTX_GPIO 4
 #define MCAN_COM_MCANTX_PIN_CONFIG GPIO_4_MCAN_TX
 
+//
+// SPIA -> EEPROM_SPI Pinmux
+//
+//
+// SPIA_PICO - GPIO Settings
+//
+#define GPIO_PIN_SPIA_PICO 8
+#define EEPROM_SPI_SPIPICO_GPIO 8
+#define EEPROM_SPI_SPIPICO_PIN_CONFIG GPIO_8_SPIA_SIMO
+//
+// SPIA_POCI - GPIO Settings
+//
+#define GPIO_PIN_SPIA_POCI 10
+#define EEPROM_SPI_SPIPOCI_GPIO 10
+#define EEPROM_SPI_SPIPOCI_PIN_CONFIG GPIO_10_SPIA_SOMI
+//
+// SPIA_CLK - GPIO Settings
+//
+#define GPIO_PIN_SPIA_CLK 9
+#define EEPROM_SPI_SPICLK_GPIO 9
+#define EEPROM_SPI_SPICLK_PIN_CONFIG GPIO_9_SPIA_CLK
+//
+// SPIA_PTE - GPIO Settings
+//
+#define GPIO_PIN_SPIA_PTE 11
+#define EEPROM_SPI_SPIPTE_GPIO 11
+#define EEPROM_SPI_SPIPTE_PIN_CONFIG GPIO_11_SPIA_STE
+
 //*****************************************************************************
 //
 // CPUTIMER Configurations
@@ -141,6 +169,16 @@ void MCAN_COM_init();
 
 //*****************************************************************************
 //
+// SPI Configurations
+//
+//*****************************************************************************
+#define EEPROM_SPI_BASE SPIA_BASE
+#define EEPROM_SPI_BITRATE 1000000
+#define EEPROM_SPI_DATAWIDTH 16
+void EEPROM_SPI_init();
+
+//*****************************************************************************
+//
 // WATCHDOG Configurations
 //
 //*****************************************************************************
@@ -158,6 +196,7 @@ void	CPUTIMER_init();
 void	GPIO_init();
 void	INTERRUPT_init();
 void	MCAN_SYSCFG_init();
+void	SPI_init();
 void	WATCHDOG_init();
 void	PinMux_init();
 

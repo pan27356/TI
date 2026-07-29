@@ -1,0 +1,91 @@
+/**
+ * These arguments were used when this file was generated. They will be automatically applied on subsequent loads
+ * via the GUI or CLI. Run CLI with '--help' for additional information on how to override these arguments.
+ * @cliArgs --device "F28003x" --part "F28003x_64PM" --package "64PM" --context "system" --product "C2000WARE@5.04.00.00"
+ * @v2CliArgs --device "TMS320F280039" --package "64PM" --context "system" --product "C2000WARE@5.04.00.00"
+ * @versions {"tool":"1.23.1+4034"}
+ */
+
+/**
+ * Import the modules used in this configuration.
+ */
+const cputimer   = scripting.addModule("/driverlib/cputimer.js", {}, false);
+const cputimer1  = cputimer.addInstance();
+const gpio       = scripting.addModule("/driverlib/gpio.js", {}, false);
+const gpio1      = gpio.addInstance();
+const inputxbar  = scripting.addModule("/driverlib/inputxbar.js", {}, false);
+const inputxbar1 = inputxbar.addInstance();
+const mcan       = scripting.addModule("/driverlib/mcan.js", {}, false);
+const mcan1      = mcan.addInstance();
+const spi        = scripting.addModule("/driverlib/spi.js", {}, false);
+const spi1       = spi.addInstance();
+const watchdog   = scripting.addModule("/driverlib/watchdog.js", {}, false);
+const watchdog1  = watchdog.addInstance();
+
+/**
+ * Write custom configuration values to the imported modules.
+ */
+cputimer1.$name                    = "myCPUTIMER0";
+cputimer1.enableInterrupt          = true;
+cputimer1.startTimer               = true;
+cputimer1.timerPeriod              = 120000;
+cputimer1.registerInterrupts       = true;
+cputimer1.timerInt.enableInterrupt = true;
+
+gpio1.$name             = "CAN_SLP";
+gpio1.direction         = "GPIO_DIR_MODE_OUT";
+gpio1.writeInitialValue = true;
+gpio1.initialValue      = 1;
+gpio1.gpioPin.$assign   = "GPIO29";
+
+inputxbar1.$name = "MTR1_XBAR_INPUT1";
+
+mcan1.loopbackMode              = false;
+mcan1.enableInterrupt           = true;
+mcan1.interruptFlags            = ["MCAN_INTR_MASK_ALL"];
+mcan1.interruptLine             = ["MCAN_INTR_LINE_NUM_0"];
+mcan1.$name                     = "MCAN_COM";
+mcan1.txBufNum                  = 1;
+mcan1.wdcPreload                = 0;
+mcan1.lse                       = 0;
+mcan1.registerInterruptLine0    = true;
+mcan1.nomRatePrescalar          = 3;
+mcan1.nomTimeSeg1               = 14;
+mcan1.nomSynchJumpWidth         = 2;
+mcan1.dataRatePrescalar         = 0;
+mcan1.rxFIFO0size               = 1;
+mcan1.wkupReqEnable             = true;
+mcan1.autoWkupEnable            = true;
+mcan1.dataTimeSeg2              = 5;
+mcan1.dataTimeSeg1              = 12;
+mcan1.dataSynchJumpWidth        = 4;
+mcan1.tdcEnable                 = true;
+mcan1.stdFilts                  = 1;
+mcan1.useCalcStartingAddress    = true;
+mcan1.interruptLine0Flag        = ["MCAN_IR_RF0N_MASK"];
+mcan1.pxhddisable               = true;
+mcan1.additionalCoreConfig      = true;
+mcan1.rrfe                      = true;
+mcan1.mcan.$assign              = "MCAN";
+mcan1.mcan.mcan_rxPin.$assign   = "GPIO5";
+mcan1.mcan.mcan_txPin.$assign   = "GPIO4";
+mcan1.mcanInt0.interruptHandler = "mcanISR";
+mcan1.mcanInt0.enableInterrupt  = true;
+mcan1.stdFilt1.$name            = "stdFilt1";
+
+spi1.$name                   = "EEPROM_SPI";
+spi1.transferProtocol        = "SPI_PROT_POL1PHA0";
+spi1.emulationMode           = "SPI_EMULATION_FREE_RUN";
+spi1.useInterrupts           = false;
+spi1.mode                    = "SPI_MODE_CONTROLLER";
+spi1.spi.$assign             = "SPIA";
+spi1.spi.spi_picoPin.$assign = "GPIO8";
+spi1.spi.spi_pociPin.$assign = "GPIO10";
+spi1.spi.spi_clkPin.$assign  = "GPIO9";
+spi1.spi.spi_ptePin.$assign  = "GPIO11";
+spi1.picoQual.$name          = "myGPIOQUAL0";
+spi1.pociQual.$name          = "myGPIOQUAL1";
+spi1.clkQual.$name           = "myGPIOQUAL2";
+spi1.pteQual.$name           = "myGPIOQUAL3";
+
+watchdog1.$name = "myWATCHDOG0";
