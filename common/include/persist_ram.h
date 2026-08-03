@@ -2,7 +2,10 @@
 //
 // FILE:   persist_ram.h
 //
-// TITLE:  Soft-reset retained RAM (NOINIT section) for C28x.
+// TITLE:  8-byte exclusive NOINIT RAM at the end of GS3 (F28003x).
+//
+// Soft-reset and watchdog-reset safe: linker section ".persist" is not
+// cleared by cinit.  Full power-on reset leaves RAM undefined.
 //
 //#############################################################################
 
@@ -10,54 +13,24 @@
 #define PERSIST_RAM_H
 
 #include <stdint.h>
-#include <stdbool.h>
 
 //
-// Number of 8-bit payload bytes stored across NOINIT RAM.
+// Fixed address: last 8 usable bytes of RAMGS3 (0xFFF8..0xFFFF reserved).
 //
-#define PERSIST_RAM_PAYLOAD_BYTES    8U
+#define PERSIST_RAM_ADDR         0x0000FFF0U
+#define PERSIST_RAM_SIZE_BYTES   8U
+#define PERSIST_RAM_WORD_COUNT   4U
 
 //
-// PersistRam_Block lives in linker section ".persist" (type = NOINIT).
-// Payload is packed as four uint16_t words (low byte first, then high byte).
+// Exclusive 8-byte buffer in NOINIT section ".persist".
+// Four uint16_t words hold eight 8-bit bytes (low byte first in each word).
 //
-typedef struct
-{
-    uint16_t magic;
-    uint16_t crc16;
-    uint16_t data[4];
-} PersistRam_Block;
+extern volatile uint16_t PersistRam_buf[PERSIST_RAM_WORD_COUNT];
 
 //
-// Returns true when magic and CRC match (data survived a soft reset).
+// Optional byte helpers (index 0..7).  Each value uses only the low 8 bits.
 //
-extern bool PersistRam_isValid(void);
-
-//
-// Clears metadata so the block is treated as invalid on next boot.
-//
-extern void PersistRam_invalidate(void);
-
-//
-// Reads up to PERSIST_RAM_PAYLOAD_BYTES bytes.
-// Returns false and zero-fills out[] when the block is invalid.
-//
-extern bool PersistRam_read(uint16_t out[PERSIST_RAM_PAYLOAD_BYTES]);
-
-//
-// Writes up to PERSIST_RAM_PAYLOAD_BYTES bytes and updates magic/CRC.
-//
-extern void PersistRam_write(const uint16_t in[PERSIST_RAM_PAYLOAD_BYTES]);
-
-//
-// Read/write a single 8-bit byte (index 0..7).
-//
-extern uint16_t PersistRam_readByte(uint16_t index);
-extern void PersistRam_writeByte(uint16_t index, uint16_t value);
-
-//
-// Direct pointer to the NOINIT block (for debuggers only).
-//
-extern volatile PersistRam_Block PersistRam_block;
+extern uint16_t PersistRam_getByte(uint16_t index);
+extern void PersistRam_setByte(uint16_t index, uint16_t value);
 
 #endif // PERSIST_RAM_H
