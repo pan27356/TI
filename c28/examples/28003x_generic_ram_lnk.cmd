@@ -19,7 +19,8 @@ MEMORY
    RAMGS0           : origin = 0x0000C000, length = 0x00001000
    RAMGS1           : origin = 0x0000D000, length = 0x00001000
    RAMGS2           : origin = 0x0000E000, length = 0x00001000
-   RAMGS3           : origin = 0x0000F000, length = 0x00000FF8
+   RAMGS3           : origin = 0x0000F000, length = 0x00000FF0
+   PERSIST_RAM      : origin = 0x0000FFF0, length = 0x00000008
    // RAMGS3_RSVD      : origin = 0x0000FFF8, length = 0x00000008 /* Reserve and do not use for code as per the errata advisory "Memory: Prefetching Beyond Valid Memory" */
 
    BOOTROM          : origin = 0x003F8000, length = 0x00007FC0
@@ -127,4 +128,10 @@ SECTIONS
     /*  Allocate IQ math areas: */
    IQmath           : > RAMLS6_7
    IQmathTables     : > RAMLS6_7
+
+   //
+   // Exclusive 8-byte user RAM at 0xFFF0.  Do not map anything else here.
+   // type = NOINIT: survives soft reset / watchdog reset (RAM still powered).
+   //
+   .persist         : type = NOINIT > PERSIST_RAM
 }
