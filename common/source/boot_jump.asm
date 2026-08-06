@@ -13,8 +13,8 @@ APP_ENTRY_POINT .set  0x092000
 
 _JumpToApp:
     DINT
-    MOV     IER, #0
-    MOV     IFR, #0
+    AND     IER, #0x0000
+    AND     IFR, #0x0000
     SETC    OBJMODE
     NOP
     MOVL    XAR7, #APP_ENTRY_POINT
