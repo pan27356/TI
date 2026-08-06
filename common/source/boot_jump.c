@@ -2,7 +2,9 @@
 //
 // FILE:   boot_jump.c
 //
-// TITLE:  Boot jump to APP (single function)
+// TITLE:  Boot jump to APP (single C function)
+//
+// Note: TI inline asm does not allow LB/LCR/RET. Use SETC OBJMODE + call.
 //
 //###########################################################################
 
@@ -16,12 +18,15 @@
 
 void JumpToApp(void)
 {
+    void (*appEntry)(void);
+
     DINT;
     IER = 0U;
     IFR = 0U;
 
-    asm(" SETC  OBJMODE");
-    asm(" NOP");
-    asm(" MOVL  XAR7, #0x92000");
-    asm(" LB    *XAR7");
+    __asm(" SETC OBJMODE");
+    __asm(" NOP");
+
+    appEntry = (void (*)(void))APP_ENTRY_POINT;
+    appEntry();
 }
