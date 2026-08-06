@@ -17,6 +17,10 @@ extern "C" {
 // Jump to APP codestart at 0x092000 (change APP_ENTRY_POINT in boot_jump.asm
 // if your linker BEGIN address differs). Does not return.
 //
+// CCS: add common/source/boot_jump.asm to the project (required for link).
+//      #include this header in .c files; do not duplicate extern in .c if you
+//      already include boot_jump.h.
+//
 extern void JumpToApp(void);
 
 #ifdef __cplusplus

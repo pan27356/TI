@@ -8,8 +8,13 @@
 
 APP_ENTRY_POINT .set  0x092000
 
-    .def _JumpToApp
+    .if __TI_EABI__
+    .asg JumpToApp, _JumpToApp
+    .endif
+
+    .global _JumpToApp
     .sect ".TI.ramfunc"
+    .retain
 
 _JumpToApp:
     DINT
