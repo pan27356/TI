@@ -2,7 +2,7 @@
 //
 // FILE:   boot_jump.h
 //
-// TITLE:  Boot jump to APP
+// TITLE:  Boot jump to APP (implementation in boot_jump.asm)
 //
 //###########################################################################
 
@@ -13,6 +13,10 @@
 extern "C" {
 #endif
 
+//
+// Jump to APP codestart at 0x092000 (change APP_ENTRY_POINT in boot_jump.asm
+// if your linker BEGIN address differs). Does not return.
+//
 extern void JumpToApp(void);
 
 #ifdef __cplusplus
@@ -20,3 +24,4 @@ extern void JumpToApp(void);
 #endif
 
 #endif /* BOOT_JUMP_H */
+
